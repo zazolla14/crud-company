@@ -33,7 +33,7 @@ export class CompaniesService {
                         console.log(r)
                 }
                 company.parent = data.parentCompany
-                company.headOfficeAddress = `${data.address},RT?RW ${data.rtrw}, ${data.kelurahan}, Kecamatan ${data.kecamatan}, Kota ${data.city}, ${data.province}, ${data.country}, ${data.posatalCode}`
+                company.headOfficeAddress = `${data.address},RT/RW ${data.rtrw}, ${data.kelurahan}, Kecamatan ${data.kecamatan}, Kota ${data.city}, ${data.province}, ${data.country}, ${data.posatalCode}`
                 company.userDateTime = `BDIA01, ${Date.now()}`
                 company.BOD = 'test'
 
