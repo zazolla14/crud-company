@@ -8,7 +8,7 @@ import {
         Param,
         Post,
         UseFilters,
-        Put,
+        Patch,
 } from '@nestjs/common'
 import { CreateCompanyDto } from './dto/create-company.dto'
 import { EntityNotFoundExceprtionFilter } from './entity-not-found-exception.filter'
@@ -44,7 +44,7 @@ export class UsersController {
                 return this.companiesService.duplicate(id)
         }
 
-        @Put(':id')
+        @Patch(':id')
         async update(@Param('id') id: number, @Body() data: CreateCompanyDto) {
                 return {
                         data: await this.companiesService.update(id, data),
@@ -55,8 +55,5 @@ export class UsersController {
         @HttpCode(HttpStatus.NO_CONTENT)
         async delete(@Param('id') id: number) {
                 await this.companiesService.delete(id)
-                // return {
-                //   message: 'success deleted data',
-                // };
         }
 }

@@ -24,7 +24,7 @@ export class CompaniesService {
                 company.code = data.code
                 company.companyName = data.companyName
                 company.parent = data.parentCompany
-                company.headOfficeAddress = `${data.address},${data.city},${data.kelurahan}, ${data.kecamatan}, ${data.city}, ${data.province}, ${data.posatalCode}`
+                company.headOfficeAddress = `${data.address},${data.rtrw}, ${data.kelurahan}, ${data.kecamatan}, ${data.city}, ${data.province}, ${data.country}, ${data.posatalCode}`
                 company.userDateTime = `BDIA01, ${data.updatedAt}`
                 company.BOD = 'test'
 
@@ -43,8 +43,55 @@ export class CompaniesService {
                 return await this.companyRepository.save(company)
         }
 
-        update(id: number, data: CreateCompanyDto) {
-                return this.companyRepository.save({ id: Number(id), ...data })
+        async update(id: number, data: CreateCompanyDto) {
+                const updateCompany = await this.companyRepository.findOneOrFail(
+                        id,
+                )
+
+                updateCompany.code = data.code
+                updateCompany.companyName = data.companyName
+                if (data.parentCompany) {
+                        updateCompany.parent = data.parentCompany
+                }
+                const address = updateCompany.headOfficeAddress.split(',')
+
+                for (let i = 0; i < address.length; i++) {
+                        if (data.address) {
+                                address[i] = data.address
+                        }
+                        i++
+                        if (data.rtrw) {
+                                address[i] = data.rtrw
+                        }
+                        i++
+                        if (data.kelurahan) {
+                                address[i] = data.kelurahan
+                        }
+                        i++
+                        if (data.kecamatan) {
+                                address[i] = data.kecamatan
+                        }
+                        i++
+                        if (data.city) {
+                                address[i] = data.city
+                        }
+                        i++
+                        if (data.province) {
+                                address[i] = data.province
+                        }
+                        i++
+                        if (data.posatalCode) {
+                                address[i] = data.posatalCode
+                        }
+                        i++
+                }
+                const rAddress = address.join(' ')
+                updateCompany.headOfficeAddress = rAddress
+
+                return this.companyRepository.save({
+                        id: Number(id),
+                        ...updateCompany,
+                })
         }
 
         delete(id: number) {

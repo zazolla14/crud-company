@@ -5,16 +5,16 @@ export class Company {
         @PrimaryGeneratedColumn()
         no: number
 
-        @Column()
+        @Column({ unique: true })
         code: string
 
-        @Column()
+        @Column({ unique: true })
         companyName: string
 
-        @Column()
+        @Column({ nullable: true })
         parent: string
 
-        @Column()
+        @Column({ nullable: true })
         headOfficeAddress: string
 
         @Column({ default: 'Draft' })
@@ -23,15 +23,15 @@ export class Company {
         @Column({ default: 'Create Data' })
         requestInfo: string
 
-        @Column()
+        @Column({ nullable: true })
         userDateTime: string
 
-        @Column()
+        @Column({ nullable: true })
         BOD: string
 
-        // @Column()
-        // createdAt: Date
+        @Column({ type: 'date' })
+        createdAt: Date
 
-        // @Column()
-        // updatedAt: Date
+        @Column({ type: 'timestamp' })
+        updatedAt: Date
 }
