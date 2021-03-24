@@ -10,10 +10,10 @@ export class Company {
         @PrimaryGeneratedColumn()
         no: number
 
-        @Column({ unique: true })
+        @Column({ unique: true, nullable: false })
         code: string
 
-        @Column({ unique: true })
+        @Column({ unique: true, nullable: false })
         companyName: string
 
         @Column({ nullable: true })
@@ -28,7 +28,7 @@ export class Company {
         @Column({ default: 'Create Data' })
         requestInfo: string
 
-        @Column({ nullable: true })
+        @Column()
         userDateTime: string
 
         @Column({ nullable: true })
