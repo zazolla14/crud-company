@@ -1,4 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import {
+        Column,
+        CreateDateColumn,
+        Entity,
+        PrimaryGeneratedColumn,
+} from 'typeorm'
 
 @Entity()
 export class Company {
@@ -29,9 +34,18 @@ export class Company {
         @Column({ nullable: true })
         BOD: string
 
-        @Column({ type: 'date' })
-        createdAt: Date
+        @CreateDateColumn()
+        DateAdded: Date
 
-        @Column({ type: 'timestamp' })
-        updatedAt: Date
+        // @Column({ type: 'datetime', nullable: true, default: null })
+        // createdAt: Date
+
+        // @Column('datetime')
+        // createdAt: Date
+
+        // @Column({ type: 'datetime', nullable: true, default: null })
+        // updatedAt: Date
+
+        // @Column('datetime')
+        // updatedAt: Date
 }

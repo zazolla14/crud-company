@@ -21,34 +21,26 @@ export class UsersController {
 
         @Get()
         async findAll() {
-                return {
-                        data: await this.companiesService.findAll(),
-                }
+                return await this.companiesService.findAll()
         }
         @Get(':id')
         async findOne(@Param('id') id: number) {
-                return {
-                        data: await this.companiesService.findOne(id),
-                }
+                return await this.companiesService.findOne(id)
         }
 
         @Post()
         async create(@Body() data: CreateCompanyDto) {
-                return {
-                        data: await this.companiesService.create(data),
-                }
+                return await this.companiesService.create(data)
         }
 
         @Post(':id')
-        duplicate(@Param('id') id: number) {
-                return this.companiesService.duplicate(id)
+        async duplicate(@Param('id') id: number) {
+                return await this.companiesService.duplicate(id)
         }
 
         @Patch(':id')
         async update(@Param('id') id: number, @Body() data: CreateCompanyDto) {
-                return {
-                        data: await this.companiesService.update(id, data),
-                }
+                return await this.companiesService.update(id, data)
         }
 
         @Delete(':id')

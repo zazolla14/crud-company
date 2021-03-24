@@ -14,6 +14,5 @@ export class CreateCompanyDto {
         website?: string
         longitude?: string
         langitude?: string
-        createdAt?: Date
-        updatedAt?: Date
+        DateAdded?: Date
 }
