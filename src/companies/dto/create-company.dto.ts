@@ -7,7 +7,7 @@ export class CreateCompanyDto {
         city?: string
         province?: string
         country?: string
-        posatalCode?: string
+        postalCode?: string
         rtrw?: string
         kelurahan?: string
         kecamatan?: string

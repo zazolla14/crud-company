@@ -20,32 +20,32 @@ export class UsersController {
         constructor(private readonly companiesService: CompaniesService) {}
 
         @Get()
-        async findAll() {
-                return await this.companiesService.findAll()
+        findAll() {
+                return this.companiesService.findAll()
         }
         @Get(':id')
-        async findOne(@Param('id') id: number) {
-                return await this.companiesService.findOne(id)
+        findOne(@Param('id') id: number) {
+                return this.companiesService.findOne(id)
         }
 
         @Post()
-        async create(@Body() data: CreateCompanyDto) {
-                return await this.companiesService.create(data)
+        create(@Body() data: CreateCompanyDto) {
+                return this.companiesService.create(data)
         }
 
         @Post(':id')
-        async duplicate(@Param('id') id: number) {
-                return await this.companiesService.duplicate(id)
+        duplicate(@Param('id') id: number) {
+                return this.companiesService.duplicate(id)
         }
 
         @Patch(':id')
-        async update(@Param('id') id: number, @Body() data: CreateCompanyDto) {
-                return await this.companiesService.update(id, data)
+        update(@Param('id') id: number, @Body() data: CreateCompanyDto) {
+                return this.companiesService.update(id, data)
         }
 
         @Delete(':id')
         @HttpCode(HttpStatus.NO_CONTENT)
-        async delete(@Param('id') id: number) {
-                await this.companiesService.delete(id)
+        delete(@Param('id') id: number) {
+                this.companiesService.delete(id)
         }
 }

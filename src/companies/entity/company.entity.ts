@@ -8,7 +8,7 @@ import {
 @Entity()
 export class Company {
         @PrimaryGeneratedColumn()
-        no: number
+        id: number
 
         @Column({ unique: true, nullable: false })
         code: string
@@ -17,35 +17,59 @@ export class Company {
         companyName: string
 
         @Column({ nullable: true })
-        parent: string
+        companyType: string
 
         @Column({ nullable: true })
-        headOfficeAddress: string
+        parentCompany: string
+
+        // @Column({ nullable: true })
+        // headOfficeAddress: string
+
+        @Column({ nullable: true })
+        address: string
+
+        @Column({ nullable: true })
+        city: string
+
+        @Column({ nullable: true })
+        province: string
+
+        @Column({ nullable: true })
+        country: string
+
+        @Column({ nullable: true })
+        postalCode: string
+
+        @Column({ nullable: true })
+        rtrw: string
+
+        @Column({ nullable: true })
+        kelurahan: string
+
+        @Column({ nullable: true })
+        kecamatan: string
+
+        @Column({ nullable: true })
+        website: string
+
+        @Column({ nullable: true })
+        longitude: string
+
+        @Column({ nullable: true })
+        langitude: string
 
         @Column({ default: 'Draft' })
         status: string
 
-        @Column({ default: 'Create Data' })
+        @Column({ nullable: true })
         requestInfo: string
 
-        @Column()
-        userDateTime: string
+        @Column({ default: 'user1', nullable: false })
+        user: string
+
+        @CreateDateColumn()
+        CreatedAt: Date
 
         @Column({ nullable: true })
         BOD: string
-
-        @CreateDateColumn()
-        DateAdded: Date
-
-        // @Column({ type: 'datetime', nullable: true, default: null })
-        // createdAt: Date
-
-        // @Column('datetime')
-        // createdAt: Date
-
-        // @Column({ type: 'datetime', nullable: true, default: null })
-        // updatedAt: Date
-
-        // @Column('datetime')
-        // updatedAt: Date
 }
