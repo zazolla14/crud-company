@@ -12,11 +12,20 @@ export class CompaniesService {
         ) {}
 
         async findAll() {
-                return await this.companyRepository.find()
+                const result = await this.companyRepository.find()
+                const r = []
+                for (let i = 0; i < result.length; i++) {
+                        const company = result[i]
+                        const formatAddress = this.formatAddress(company)
+                        r.push(formatAddress)
+                }
+                return { Companies: r }
         }
 
         async findOne(id: number) {
-                return await this.companyRepository.findOneOrFail(id)
+                const company = await this.companyRepository.findOneOrFail(id)
+                const r = this.formatAddress(company)
+                return { Companies: r }
         }
 
         async create(data: CreateCompanyDto) {
@@ -33,10 +42,8 @@ export class CompaniesService {
                         if (codeCompany === undefined) {
                                 return { status: 'error' }
                         } else if (codeCompany.parentCompany === null) {
-                                console.log('test1')
                                 return await this.companyRepository.save(data)
                         } else {
-                                console.log('test2')
                                 return { status: 'error' }
                         }
                 }
@@ -57,6 +64,27 @@ export class CompaniesService {
         }
 
         async update(id: number, data: CreateCompanyDto) {
+                if (data.parentCompany) {
+                        const codeCompany = await this.companyRepository.findOne(
+                                {
+                                        where: {
+                                                code: Like(
+                                                        `%${data.parentCompany}%`,
+                                                ),
+                                        },
+                                },
+                        )
+                        if (codeCompany === undefined) {
+                                return { status: 'error' }
+                        } else if (codeCompany.parentCompany === null) {
+                                return await this.companyRepository.save({
+                                        id: Number(id),
+                                        ...data,
+                                })
+                        } else {
+                                return { status: 'error' }
+                        }
+                }
                 return await this.companyRepository.save({
                         id: Number(id),
                         ...data,
@@ -65,5 +93,21 @@ export class CompaniesService {
 
         async delete(id: number) {
                 return await this.companyRepository.delete(id)
+        }
+
+        formatAddress(company: Company) {
+                const r = {
+                        id: company.id,
+                        code: company.code,
+                        companyName: company.companyName,
+                        parent: company.parentCompany,
+                        headOfficeAddress: `${company.address}, Kota ${company.city}, Provinsi ${company.province}, ${company.country}, ${company.postalCode}, RT/RW ${company.rtrw}, Kelurahan ${company.kelurahan},Kecamatan ${company.kecamatan}`,
+                        website: company.website,
+                        maps: `${company.langitude}, ${company.langitude}`,
+                        requestInfo: company.requestInfo,
+                        userDateTime: `${company.user}, ${company.CreatedAt}`,
+                        bod: company.BOD,
+                }
+                return r
         }
 }

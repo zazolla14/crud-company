@@ -22,9 +22,6 @@ export class Company {
         @Column({ nullable: true })
         parentCompany: string
 
-        // @Column({ nullable: true })
-        // headOfficeAddress: string
-
         @Column({ nullable: true })
         address: string
 
