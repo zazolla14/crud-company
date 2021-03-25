@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { UsersController } from './companies.controller'
 import { CompaniesService } from './companies.service'
 import { Company } from './entity/company.entity'
-import 'dotenv/config'
+import { HeadOfficeAddress } from './entity/headOfficeAddress.entity'
 
 @Module({
     imports: [
@@ -18,6 +18,7 @@ import 'dotenv/config'
             synchronize: true,
         }),
         TypeOrmModule.forFeature([Company]),
+        TypeOrmModule.forFeature([HeadOfficeAddress]),
     ],
     controllers: [UsersController],
     providers: [CompaniesService],

@@ -25,33 +25,13 @@ export class Company {
     @Column({ nullable: true })
     parentCompany: string
 
-    // @OneToOne(() => HeadOfficeAddress)
-    // @JoinColumn()
-    // headOfficeAddress: HeadOfficeAddress
-
-    @Column({ nullable: true })
-    address: string
-
-    @Column({ nullable: true })
-    city: string
-
-    @Column({ nullable: true })
-    province: string
-
-    @Column({ nullable: true })
-    country: string
-
-    @Column({ nullable: true })
-    postalCode: string
-
-    @Column({ nullable: true })
-    rtrw: string
-
-    @Column({ nullable: true })
-    kelurahan: string
-
-    @Column({ nullable: true })
-    kecamatan: string
+    @OneToOne(() => HeadOfficeAddress, {
+        eager: true,
+        cascade: true,
+        // onDelete: 'CASCADE', //! saya cari di forum, beberapa ada yang bilang memang ada issue untuk realtion OneToOne.
+    })
+    @JoinColumn()
+    headOfficeAddress: HeadOfficeAddress
 
     @Column({ nullable: true })
     website: string

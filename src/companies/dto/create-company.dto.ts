@@ -1,6 +1,4 @@
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator'
-import { OneToOne } from 'typeorm'
-import { HeadOfficeAddress } from '../entity/headOfficeAddress.entity'
 
 export class CreateCompanyDto {
     @IsNotEmpty()
@@ -18,48 +16,17 @@ export class CreateCompanyDto {
     @IsString()
     parentCompany: string
 
-    // @IsOptional()
-    // headOfficeAddress: {
-    //     address: string
-    //     city: string
-    //     province: string
-    //     country: string
-    //     postalCode: string
-    //     rtree: string
-    //     kelurahan: string
-    //     kecamatan: string
-    // }
-
     @IsOptional()
-    @IsString()
-    address: string
-
-    @IsOptional()
-    @IsString()
-    city: string
-
-    @IsString()
-    province: string
-
-    @IsOptional()
-    @IsString()
-    country: string
-
-    @IsOptional()
-    @IsString()
-    postalCode: string
-
-    @IsOptional()
-    @IsString()
-    rtrw: string
-
-    @IsOptional()
-    @IsString()
-    kelurahan: string
-
-    @IsOptional()
-    @IsString()
-    kecamatan: string
+    headOfficeAddress: {
+        address: string
+        city: string
+        province: string
+        country: string
+        postalCode: string
+        rtrw: string
+        kelurahan: string
+        kecamatan: string
+    }
 
     @IsOptional()
     @IsString()
