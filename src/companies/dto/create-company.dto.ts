@@ -1,61 +1,75 @@
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator'
+import { OneToOne } from 'typeorm'
+import { HeadOfficeAddress } from '../entity/headOfficeAddress.entity'
 
 export class CreateCompanyDto {
-        @IsNotEmpty()
-        code: string
+    @IsNotEmpty()
+    code: string
 
-        @IsNotEmpty()
-        @IsString()
-        companyName: string
+    @IsNotEmpty()
+    @IsString()
+    companyName: string
 
-        @IsOptional()
-        @IsString()
-        companyType: string
+    @IsOptional()
+    @IsString()
+    companyType: string
 
-        @IsOptional()
-        @IsString()
-        parentCompany: string
+    @IsOptional()
+    @IsString()
+    parentCompany: string
 
-        @IsOptional()
-        @IsString()
-        address: string
+    // @IsOptional()
+    // headOfficeAddress: {
+    //     address: string
+    //     city: string
+    //     province: string
+    //     country: string
+    //     postalCode: string
+    //     rtree: string
+    //     kelurahan: string
+    //     kecamatan: string
+    // }
 
-        @IsOptional()
-        @IsString()
-        city: string
+    @IsOptional()
+    @IsString()
+    address: string
 
-        @IsString()
-        province: string
+    @IsOptional()
+    @IsString()
+    city: string
 
-        @IsOptional()
-        @IsString()
-        country: string
+    @IsString()
+    province: string
 
-        @IsOptional()
-        @IsString()
-        postalCode: string
+    @IsOptional()
+    @IsString()
+    country: string
 
-        @IsOptional()
-        @IsString()
-        rtrw: string
+    @IsOptional()
+    @IsString()
+    postalCode: string
 
-        @IsOptional()
-        @IsString()
-        kelurahan: string
+    @IsOptional()
+    @IsString()
+    rtrw: string
 
-        @IsOptional()
-        @IsString()
-        kecamatan: string
+    @IsOptional()
+    @IsString()
+    kelurahan: string
 
-        @IsOptional()
-        @IsString()
-        website: string
+    @IsOptional()
+    @IsString()
+    kecamatan: string
 
-        @IsOptional()
-        @IsString()
-        longitude: string
+    @IsOptional()
+    @IsString()
+    website: string
 
-        @IsOptional()
-        @IsString()
-        langitude: string
+    @IsOptional()
+    @IsString()
+    longitude: string
+
+    @IsOptional()
+    @IsString()
+    langitude: string
 }
