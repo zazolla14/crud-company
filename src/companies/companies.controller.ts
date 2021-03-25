@@ -44,6 +44,6 @@ export class UsersController {
 
     @Delete(':id')
     delete(@Param() id: FindOneParam) {
-        this.companiesService.delete(id.id)
+        return this.companiesService.delete(id.id)
     }
 }

@@ -1,22 +1,24 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator'
+import { IsNotEmpty, IsObject, IsOptional, IsString } from 'class-validator'
+// import { CreateHeadOfficeAddressDto } from './create-headOfficeAddress.dto'
 
 export class CreateCompanyDto {
-    @IsNotEmpty()
+    @IsNotEmpty({ message: 'jangan kosong' })
     code: string
 
-    @IsNotEmpty()
-    @IsString()
+    @IsNotEmpty({ message: 'jangan kosong' })
+    @IsString({ message: 'companyName wajib string' })
     companyName: string
 
     @IsOptional()
-    @IsString()
+    @IsString({ message: 'companyType wajib string' })
     companyType: string
 
     @IsOptional()
-    @IsString()
+    @IsString({ message: 'parentCompany wajib string' })
     parentCompany: string
 
     @IsOptional()
+    @IsObject({ message: 'headOfficeAddress wajib objek' })
     headOfficeAddress: {
         address: string
         city: string
@@ -29,14 +31,14 @@ export class CreateCompanyDto {
     }
 
     @IsOptional()
-    @IsString()
+    @IsString({ message: 'website wajib string' })
     website: string
 
     @IsOptional()
-    @IsString()
+    @IsString({ message: 'longitude wajib string' })
     longitude: string
 
     @IsOptional()
-    @IsString()
+    @IsString({ message: 'langitude wajib string' })
     langitude: string
 }
