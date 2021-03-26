@@ -15,7 +15,7 @@ import { FindOneParam } from './validator/FindOneParam'
 
 @Controller('companies')
 @UseFilters(EntityNotFoundExceprtionFilter)
-export class UsersController {
+export class CompaniesController {
     constructor(private readonly companiesService: CompaniesService) {}
 
     @Get()

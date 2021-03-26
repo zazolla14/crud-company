@@ -14,56 +14,50 @@ export class CompaniesService {
     ) {}
 
     async findAll() {
-        const result = await this.companyRepository.find()
-        const r = []
-        for (let i = 0; i < result.length; i++) {
-            const company = result[i]
+        const datas = await this.companyRepository.find()
+        const result = datas.map((data) => {
             const formatAddressHelper = new FormatAddress()
-            const formatAddress = formatAddressHelper.formatAddress(company)
-            r.push(formatAddress)
-        }
-        return { Companies: r }
+            const formatAddress = formatAddressHelper.formatAddress(data)
+            return formatAddress
+        })
+
+        return { Companies: result }
     }
 
     async findOne(id: number) {
         const company = await this.companyRepository.findOneOrFail(id)
         const formatAddressHelper = new FormatAddress()
-        const r = formatAddressHelper.formatAddress(company)
-        return { Companies: r }
+        const result = formatAddressHelper.formatAddress(company)
+        return { Companies: result }
     }
 
     async create(data: CreateCompanyDto) {
-        if (data.parentCompany) {
-            const codeCompany = await this.companyRepository.findOne({
-                where: {
-                    code: Like(`%${data.parentCompany}%`),
-                },
-            })
-            if (codeCompany === undefined) {
-                throw new HttpException(
-                    'Code Company not found',
-                    HttpStatus.NOT_FOUND,
-                )
-            } else if (codeCompany.parentCompany === null) {
-                const companyData = new CreateCompanyHelper()
-                const result = companyData.CreateCompany(data)
-                const companyResult = await this.companyRepository.save(result)
-                return {
-                    Company: companyResult,
-                }
-            } else {
-                throw new HttpException(
-                    'This company cant be parent',
-                    HttpStatus.NOT_ACCEPTABLE,
-                )
-            }
-        }
+        const codeCompany = await this.companyRepository.findOne({
+            where: {
+                code: Like(`%${data.parentCompany}%`),
+            },
+        })
+
         const companyData = new CreateCompanyHelper()
         const result = companyData.CreateCompany(data)
-        const companyResult = await this.companyRepository.save(result)
-        return {
-            Company: companyResult,
-        }
+
+        // throw new HttpException(
+        //             'Code Company not found',
+        //             HttpStatus.NOT_FOUND,
+        //         )
+
+        //         throw new HttpException(
+        //             'This company cant be parent',
+        //             HttpStatus.NOT_ACCEPTABLE,
+        //         )
+
+        return !data.parentCompany
+            ? await this.companyRepository.save(result)
+            : !codeCompany
+            ? console.log('Code Company not found')
+            : !codeCompany.parentCompany
+            ? await this.companyRepository.save(result)
+            : console.log('This company cant be parent')
     }
 
     async duplicate(id: number) {
@@ -78,50 +72,51 @@ export class CompaniesService {
         duplicateCompany.companyName = `${duplicateCompany.companyName} (duplicate)`
 
         const companyData = new CreateCompanyHelper()
-        const result = companyData.CreateCompany(duplicateCompany)
-        const companyResult = await this.companyRepository.save(result)
+        const companyResult = companyData.CreateCompany(duplicateCompany)
+        const result = await this.companyRepository.save(companyResult)
         return {
-            Company: companyResult,
+            Company: result,
         }
     }
 
     async update(id: number, data: CreateCompanyDto) {
-        if (data.parentCompany) {
-            const codeCompany = await this.companyRepository.findOne({
-                where: {
-                    code: Like(`%${data.parentCompany}%`),
-                },
-            })
-            if (codeCompany === undefined) {
-                return { messagge: 'Parent Company not found' }
-            } else if (codeCompany.parentCompany === null) {
-                const companyData = new CreateCompanyHelper()
-                const result = companyData.CreateCompany(data)
-                const companyResult = await this.companyRepository.save({
-                    id: Number(id),
-                    ...result,
-                })
-                return {
-                    Company: companyResult,
-                }
-            } else {
-                return { messagge: 'Parent Company not found' }
-            }
-        }
+        const codeCompany = await this.companyRepository.findOne({
+            where: {
+                code: Like(`%${data.parentCompany}%`),
+            },
+        })
+
         const companyData = new CreateCompanyHelper()
         const result = companyData.CreateCompany(data)
-        const companyResult = await this.companyRepository.save({
-            id: Number(id),
-            ...result,
-        })
-        return {
-            Company: companyResult,
-        }
+
+        // throw new HttpException(
+        //             'Code Company not found',
+        //             HttpStatus.NOT_FOUND,
+        //         )
+
+        // throw new HttpException(
+        //     'This company cant be parent',
+        //     HttpStatus.NOT_ACCEPTABLE,
+        // )
+
+        return !data.parentCompany
+            ? await this.companyRepository.save({
+                  id: Number(id),
+                  ...result,
+              })
+            : !codeCompany
+            ? console.log('Code Company not found')
+            : !codeCompany.parentCompany
+            ? await this.companyRepository.save({
+                  id: Number(id),
+                  ...result,
+              })
+            : console.log('This company cant be parent')
     }
 
     async delete(id: number) {
         await this.companyRepository.findOneOrFail(id)
         await this.companyRepository.delete(id)
-        return { messagge: 'ok' }
+        throw new HttpException('Success Deleted Data', HttpStatus.OK)
     }
 }

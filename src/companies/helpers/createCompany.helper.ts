@@ -5,26 +5,45 @@ import { HeadOfficeAddress } from '../entity/headOfficeAddress.entity'
 export class CreateCompanyHelper {
     CreateCompany(data: CreateCompanyDto) {
         const headOfficeAddressData = new HeadOfficeAddress()
+        const {
+            address,
+            city,
+            province,
+            country,
+            postalCode,
+            rtrw,
+            kelurahan,
+            kecamatan,
+        } = data.headOfficeAddress
 
-        headOfficeAddressData.address = data.headOfficeAddress.address
-        headOfficeAddressData.city = data.headOfficeAddress.city
-        headOfficeAddressData.province = data.headOfficeAddress.province
-        headOfficeAddressData.country = data.headOfficeAddress.country
-        headOfficeAddressData.postalCode = data.headOfficeAddress.postalCode
-        headOfficeAddressData.rtrw = data.headOfficeAddress.rtrw
-        headOfficeAddressData.kelurahan = data.headOfficeAddress.kelurahan
-        headOfficeAddressData.kecamatan = data.headOfficeAddress.kecamatan
+        headOfficeAddressData.address = address
+        headOfficeAddressData.city = city
+        headOfficeAddressData.province = province
+        headOfficeAddressData.country = country
+        headOfficeAddressData.postalCode = postalCode
+        headOfficeAddressData.rtrw = rtrw
+        headOfficeAddressData.kelurahan = kelurahan
+        headOfficeAddressData.kecamatan = kecamatan
 
         const companyData = new Company()
+        const {
+            code,
+            companyName,
+            companyType,
+            parentCompany,
+            website,
+            longitude,
+            langitude,
+        } = data
 
-        companyData.code = data.code
-        companyData.companyName = data.companyName
-        companyData.companyType = data.companyType
-        companyData.parentCompany = data.parentCompany
+        companyData.code = code
+        companyData.companyName = companyName
+        companyData.companyType = companyType
+        companyData.parentCompany = parentCompany
         companyData.headOfficeAddress = headOfficeAddressData
-        companyData.website = data.website
-        companyData.longitude = data.longitude
-        companyData.langitude = data.langitude
+        companyData.website = website
+        companyData.longitude = longitude
+        companyData.langitude = langitude
 
         return companyData
     }
